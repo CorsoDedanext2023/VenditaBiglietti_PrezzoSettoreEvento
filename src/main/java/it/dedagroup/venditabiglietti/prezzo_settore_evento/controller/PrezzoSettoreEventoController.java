@@ -72,7 +72,7 @@ public class PrezzoSettoreEventoController {
 	 * @param idSettore Il nuovo id del settore.
 	 * @return ResponseEntity con lo stato della richiesta.
 	 */
-	@PostMapping("/prezzi-settore-evento/modifica-id-settore")
+	@PostMapping("/prezzi-settore-evento/modifica-settore")
 	public ResponseEntity<Void> modificaIdSettore(
 			@RequestParam("idPse") @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idPse,
 			@RequestParam("idSettore") @Min(value = 1, message = "L'id del settore non è valido") long idSettore){

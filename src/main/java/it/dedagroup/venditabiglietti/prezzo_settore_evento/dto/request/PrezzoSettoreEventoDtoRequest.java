@@ -25,6 +25,6 @@ public class PrezzoSettoreEventoDtoRequest {
     /**
      * Il prezzo associato al prezzo settore evento.
      */
-    @Min(value = 1, message = "Prezzo non valido")
+    @Min(value = 0, message = "Prezzo non valido")
     private double prezzo;
 }
