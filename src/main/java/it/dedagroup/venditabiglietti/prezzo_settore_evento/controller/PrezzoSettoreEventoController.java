@@ -22,6 +22,7 @@ import it.dedagroup.venditabiglietti.prezzo_settore_evento.model.PrezzoSettoreEv
 import it.dedagroup.venditabiglietti.prezzo_settore_evento.servicedef.PrezzoSettoreEventoService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 
 /**
  * Controller che gestisce le operazioni relative ai prezzi settore evento.
@@ -71,7 +72,11 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-settore")
-	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettore(@RequestParam @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
+	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettore(
+			@RequestParam 
+			@Min(value = 1, message = "L'id del settore non è valido") 
+			@Positive(message = "l'id del settore non è valido")
+			long idSettore){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdSettore(idSettore));
 	}
 	
@@ -125,6 +130,7 @@ public class PrezzoSettoreEventoController {
 	 * @param idEvento Il nuovo id dell'evento.
 	 * @return ResponseEntity con lo stato della richiesta.
 	 */
+
 	@Operation(summary = "Modifica l'id dell'evento",
 			description = "Questo endpoint permette di modificare l'id dell'evento")
 	@ApiResponses(value = {
@@ -132,7 +138,9 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@PostMapping("/prezzi-settore-evento/modifica-id-evento")
+
+	@PostMapping("/prezzi-settore-evento/modifica-evento")
+
 	public ResponseEntity<Void> modificaIdEvento(
 			@RequestParam("idPse") @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idPse,
 			@RequestParam("idEvento") @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
@@ -157,7 +165,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@PostMapping("/prezzi-settore-evento/modifica-prezzo")
-	public ResponseEntity<Void> modificaPrezzoByIdSettoreAndIdEvento(@RequestBody PrezzoSettoreEventoDtoRequest request){
+	public ResponseEntity<Void> modificaPrezzoByIdSettoreAndIdEvento(@Valid @RequestBody PrezzoSettoreEventoDtoRequest request){
 		pseService.modificaPrezzoByIdSettoreAndIdEvento(request.getPrezzo(), request.getIdSettore(), request.getIdEvento());
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}

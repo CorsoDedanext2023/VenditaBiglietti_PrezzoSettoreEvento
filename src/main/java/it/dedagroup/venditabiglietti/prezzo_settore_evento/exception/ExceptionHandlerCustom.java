@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import it.dedagroup.venditabiglietti.prezzo_settore_evento.dto.response.ErrorMessage;
 import it.dedagroup.venditabiglietti.prezzo_settore_evento.exception.model.NotFoundExceptionCustom;
 import it.dedagroup.venditabiglietti.prezzo_settore_evento.exception.model.NotValidDataException;
+import jakarta.validation.ConstraintViolationException;
 
 /**
  * Gestore delle eccezioni globale per l'applicazione, responsabile di gestire
@@ -21,7 +22,7 @@ import it.dedagroup.venditabiglietti.prezzo_settore_evento.exception.model.NotVa
  * @see ErrorMessage
  */
 @RestControllerAdvice
-public class ExceptionHandlerCustom {
+public class ExceptionHandlerCustom{
 	
 	/**
 	 * Gestisce le eccezioni di tipo {@link NotValidDataException} restituendo una risposta HTTP BAD_REQUEST
@@ -46,4 +47,11 @@ public class ExceptionHandlerCustom {
 	ResponseEntity<ErrorMessage> getNotFoundException(NotFoundExceptionCustom e){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage(e.getMessage(), HttpStatus.NOT_FOUND.value()));
 	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	ResponseEntity<ErrorMessage> getNotFoundException(ConstraintViolationException e){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
+	}
+	
+	
 }
