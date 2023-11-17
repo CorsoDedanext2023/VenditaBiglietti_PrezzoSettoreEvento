@@ -86,7 +86,7 @@ public interface PrezzoSettoreEventoService {
     * @return Una lista di prezzi dei settori per l'evento che sono disponibili, se presenti.
     * @throws NotFoundExceptionCustom se non vengono trovati prezzi del settore disponibili per l'evento e settore specificati.
     */
-   List<PrezzoSettoreEvento> findAllByIsAvailableTrue(long idEvento, long idSettore) throws NotFoundExceptionCustom;
+   List<PrezzoSettoreEvento> findAllByIsCancellatoFalse(long idEvento, long idSettore) throws NotFoundExceptionCustom;
    
    /**
     * Trova tutti i prezzi dei settori per un determinato identificatore di evento che sono disponibili.
@@ -95,7 +95,7 @@ public interface PrezzoSettoreEventoService {
     * @return Una lista di prezzi dei settori per l'evento che sono disponibili, se presenti.
     * @throws NotFoundExceptionCustom se non vengono trovati prezzi del settore disponibili per l'evento specificato.
     */
-   List<PrezzoSettoreEvento> findAllByIdEventoAndIsAvailableTrue(long id) throws NotFoundExceptionCustom;
+   List<PrezzoSettoreEvento> findAllByIdEventoAndIsCancellatoFalse(long id) throws NotFoundExceptionCustom;
 
    /**
     * Trova tutti i prezzi dei settori per un determinato identificatore di settore che sono disponibili.
@@ -104,7 +104,7 @@ public interface PrezzoSettoreEventoService {
     * @return Una lista di prezzi dei settori per l'evento che sono disponibili, se presenti.
     * @throws NotFoundExceptionCustom se non vengono trovati prezzi del settore disponibili per l'evento specificato.
     */
-   List<PrezzoSettoreEvento> findAllByIdSettoreAndIsAvailableTrue(long id) throws NotFoundExceptionCustom;
+   List<PrezzoSettoreEvento> findAllByIdSettoreAndIsCancellatoFalse(long id) throws NotFoundExceptionCustom;
 
    /**
     * Trova tutti i prezzi dei settori per un determinato identificatore di evento e settore che sono disponibili.
@@ -114,7 +114,7 @@ public interface PrezzoSettoreEventoService {
     * @return Una lista di prezzi dei settori per l'evento che sono disponibili, se presenti.
     * @throws NotFoundExceptionCustom se non vengono trovati prezzi del settore disponibili per l'evento e settore specificati.
     */
-   List<PrezzoSettoreEvento> findAllByIdEventoAndIdSettoreAndIsAvailableTrue(long idEvento, long idSettore) throws NotFoundExceptionCustom;
+   List<PrezzoSettoreEvento> findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(long idEvento, long idSettore) throws NotFoundExceptionCustom;
 
    /**
     * Elimina i prezzi del settore associati a un determinato identificatore di settore.
@@ -137,6 +137,8 @@ public interface PrezzoSettoreEventoService {
     * @param idEvento  L'identificatore dell'evento.
     */
    void eliminaByIdSettoreAndIdEvento(long idSettore, long idEvento);
+   
+   PrezzoSettoreEvento findPrezzoSettoreEventoById(long id);
 
    
    

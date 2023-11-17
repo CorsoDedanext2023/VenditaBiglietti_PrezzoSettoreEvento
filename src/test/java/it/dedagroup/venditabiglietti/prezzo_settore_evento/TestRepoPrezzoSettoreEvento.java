@@ -88,7 +88,7 @@ public class TestRepoPrezzoSettoreEvento {
 	
 	@Test
 	public void testFindAllByIdEventoAndIsAvailableTrue() throws Exception {
-		List<PrezzoSettoreEvento> lista = repo.findAllByIdEventoAndIsAvailableTrue(1)
+		List<PrezzoSettoreEvento> lista = repo.findAllByIdEventoAndIsCancellatoFalse(1)
 				.orElse(null);
 		assertNotNull(lista);
 		assertEquals(3, lista.size());
@@ -96,7 +96,7 @@ public class TestRepoPrezzoSettoreEvento {
 	
 	@Test
 	public void testFindAllByIdSettoreAndIsAvailableTrue() throws Exception {
-		List<PrezzoSettoreEvento> lista = repo.findAllByIdSettoreAndIsAvailableTrue(1)
+		List<PrezzoSettoreEvento> lista = repo.findAllByIdSettoreAndIsCancellatoFalse(1)
 				.orElse(null);
 		assertNotNull(lista);
 		assertEquals(2, lista.size());
@@ -104,7 +104,7 @@ public class TestRepoPrezzoSettoreEvento {
 	
 	@Test
 	public void testFindAllByIdEventoAndIdSettoreAndIsAvailableTrue() throws Exception {
-		List<PrezzoSettoreEvento> lista = repo.findAllByIdEventoAndIdSettoreAndIsAvailableTrue(1, 1)
+		List<PrezzoSettoreEvento> lista = repo.findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(1, 1)
 				.orElse(null);
 		assertNotNull(lista);
 		assertEquals(1, lista.size());
@@ -133,7 +133,7 @@ public class TestRepoPrezzoSettoreEvento {
 		repo.eliminaByIdSettore(1L);
 		Optional<PrezzoSettoreEvento> pseEliminato = repo.findById(1L);
 		assertTrue(pseEliminato.isPresent());
-		assertFalse(pseEliminato.get().isAvailable());
+		assertTrue(pseEliminato.get().isCancellato());
 		
 	}
 	
@@ -147,7 +147,7 @@ public class TestRepoPrezzoSettoreEvento {
 		repo.eliminaByIdEvento(1L);
 		Optional<PrezzoSettoreEvento> pseEliminato = repo.findById(1L);
 		assertTrue(pseEliminato.isPresent());
-		assertFalse(pseEliminato.get().isAvailable());
+		assertTrue(pseEliminato.get().isCancellato());
 	}
 	
 	@Test
@@ -160,7 +160,7 @@ public class TestRepoPrezzoSettoreEvento {
 		repo.eliminaByIdSettoreAndIdEvento(1L,1L);
 		Optional<PrezzoSettoreEvento> pseEliminato = repo.findById(1L);
 		assertTrue(pseEliminato.isPresent());
-		assertFalse(pseEliminato.get().isAvailable());
+		assertTrue(pseEliminato.get().isCancellato());
 	}
 		
 	

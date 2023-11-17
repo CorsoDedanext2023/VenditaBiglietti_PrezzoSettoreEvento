@@ -47,7 +47,7 @@ public class PrezzoSettoreEvento {
 	 * Flag che indica se il prezzo del settore per l'evento è disponibile o meno.
 	 */
 	@Column(nullable = false)
-	private boolean isAvailable = true;
+	private boolean isCancellato = false;
 
 }
 

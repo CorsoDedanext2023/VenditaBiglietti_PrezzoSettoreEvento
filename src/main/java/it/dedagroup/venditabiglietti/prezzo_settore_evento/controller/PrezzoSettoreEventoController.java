@@ -205,11 +205,11 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore-is-available")
-	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIdSettoreAndIsAvailableTrue(
+	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore-is-cancellato-false")
+	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIdSettoreAndIsCancellatoFalse(
 			@RequestParam @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento,
 			@RequestParam @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
-		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEventoAndIdSettoreAndIsAvailableTrue(idEvento, idSettore));
+		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(idEvento, idSettore));
 	}
 	
 	/**
@@ -225,10 +225,10 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-evento-is-available")
-	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIsAvailableTrue(
+	@GetMapping("/prezzi-settore-evento/lista-by-evento-is-cancellato-false")
+	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIsCancellatoFalse(
 			@RequestParam @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
-		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEventoAndIsAvailableTrue(idEvento));
+		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEventoAndIsCancellatoFalse(idEvento));
 	}
 	
 	/**
@@ -244,10 +244,10 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-settore-is-available")
-	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettoreAndIsAvailableTrue(
+	@GetMapping("/prezzi-settore-evento/lista-by-settore-is-cancellato-false")
+	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettoreAndIsCancellatoFalse(
 			@RequestParam @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
-		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdSettoreAndIsAvailableTrue(idSettore));
+		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdSettoreAndIsCancellatoFalse(idSettore));
 	}
 	
 	/**

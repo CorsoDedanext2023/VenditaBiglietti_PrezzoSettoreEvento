@@ -126,11 +126,11 @@ class ApplicationTests {
 		.andExpect(jsonPath("$[0].idSettore").value(1))
 		.andExpect(jsonPath("$[0].idEvento").value(2))
 		.andExpect(jsonPath("$[0].prezzo").value(25.00))
-		.andExpect(jsonPath("$[0].available").value(true))
+		.andExpect(jsonPath("$[0].cancellato").value(false))
 		.andExpect(jsonPath("$[1].idSettore").value(2))
 		.andExpect(jsonPath("$[1].idEvento").value(2))
 		.andExpect(jsonPath("$[1].prezzo").value(22.00))
-		.andExpect(jsonPath("$[1].available").value(true))
+		.andExpect(jsonPath("$[1].cancellato").value(false))
 		.andReturn();
 	}
 	
@@ -242,7 +242,7 @@ class ApplicationTests {
 		.andExpect(jsonPath("$[0].idSettore").value(1))
 		.andExpect(jsonPath("$[0].idEvento").value(1))
 		.andExpect(jsonPath("$[0].prezzo").value(20.00))
-		.andExpect(jsonPath("$[0].available").value(true))
+		.andExpect(jsonPath("$[0].cancellato").value(false))
 		.andReturn();
 	}
 	
@@ -268,8 +268,8 @@ class ApplicationTests {
 	
 	@Test
 	@Order(2)
-	void getListaByIdSettoreAndByIdEventoAndIsAvailableTrueCorretto() throws Exception{
-		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-evento-settore-is-available")
+	void getListaByIdSettoreAndByIdEventoAndIsCancellatoFalseCorretto() throws Exception{
+		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-evento-settore-is-cancellato-false")
 				.param("idEvento", "1")
 				.param("idSettore", "1")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -277,13 +277,13 @@ class ApplicationTests {
 		.andExpect(jsonPath("$[0].idSettore").value(1))
 		.andExpect(jsonPath("$[0].idEvento").value(1))
 		.andExpect(jsonPath("$[0].prezzo").value(20.00))
-		.andExpect(jsonPath("$[0].available").value(true))
+		.andExpect(jsonPath("$[0].cancellato").value(false))
 		.andReturn();
 	}
 	
 	@Test
-	void getListaByIdSettoreAndByIdEventoAndIsAvailableTrueErroreIdEvento() throws Exception{
-		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-evento-settore-is-available")
+	void getListaByIdSettoreAndByIdEventoAndIsCancellatoFalseErroreIdEvento() throws Exception{
+		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-evento-settore-is-cancellato-false")
 				.param("idEvento", "-1")
 				.param("idSettore", "1")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -292,8 +292,8 @@ class ApplicationTests {
 	}
 	
 	@Test
-	void getListaByIdSettoreAndByIdEventoAndIsAvailableTrueErroreIdSettore() throws Exception{
-		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-evento-settore-is-available")
+	void getListaByIdSettoreAndByIdEventoAndIsCancellatoFalseErroreIdSettore() throws Exception{
+		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-evento-settore-is-cancellato-false")
 				.param("idEvento", "1")
 				.param("idSettore", "opp")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -303,7 +303,7 @@ class ApplicationTests {
 	
 	@Test
 	@Order(4)
-	void getListaByIdEventoAndIsAvailableTrueCorreto() throws Exception {
+	void getListaByIdEventoAndIsCancellatoFalseCorreto() throws Exception {
 		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-evento")
 				.param("idEvento", "2")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -311,16 +311,16 @@ class ApplicationTests {
 		.andExpect(jsonPath("$[0].idSettore").value(1))
 		.andExpect(jsonPath("$[0].idEvento").value(2))
 		.andExpect(jsonPath("$[0].prezzo").value(25.00))
-		.andExpect(jsonPath("$[0].available").value(true))
+		.andExpect(jsonPath("$[0].cancellato").value(false))
 		.andExpect(jsonPath("$[1].idSettore").value(2))
 		.andExpect(jsonPath("$[1].idEvento").value(2))
 		.andExpect(jsonPath("$[1].prezzo").value(22.00))
-		.andExpect(jsonPath("$[1].available").value(true))
+		.andExpect(jsonPath("$[1].cancellato").value(false))
 		.andReturn();
 	}
 	
 	@Test
-	void getListaByIdEventoAndIsAvailableTrueErroreidEvento() throws Exception {
+	void getListaByIdEventoAndIsCancellatoFalseErroreidEvento() throws Exception {
 		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-evento")
 				.param("idEvento", "-4143243243")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -330,7 +330,7 @@ class ApplicationTests {
 	
 	@Test
 	@Order(5)
-	void getListaByIdSettoreAndIsAvailableTrueCorretto() throws Exception {
+	void getListaByIdSettoreAndIsCancellatoFalseCorretto() throws Exception {
 		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-settore")
 				.param("idSettore", "3")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -338,13 +338,13 @@ class ApplicationTests {
 		.andExpect(jsonPath("$[0].idSettore").value(3))
 		.andExpect(jsonPath("$[0].idEvento").value(1))
 		.andExpect(jsonPath("$[0].prezzo").value(30.00))
-		.andExpect(jsonPath("$[0].available").value(true))
+		.andExpect(jsonPath("$[0].cancellato").value(false))
 		.andReturn();
 	}
 	
 	@Test
 	@Order(6)
-	void getListaByIdSettoreAndIsAvailableTrueisEmpty() throws Exception {
+	void getListaByIdSettoreAndIsCancellatoFalseisEmpty() throws Exception {
 		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-settore")
 				.param("idSettore", "7")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -355,7 +355,7 @@ class ApplicationTests {
 	}
 	
 	@Test
-	void getListaByIdSettoreAndIsAvailableTrueErroreIdSettore() throws Exception {
+	void getListaByIdSettoreAndIsCancellatoFalseErroreIdSettore() throws Exception {
 		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-by-settore")
 				.param("idSettore", "32b423u")
 				.contentType(MediaType.APPLICATION_JSON_VALUE))

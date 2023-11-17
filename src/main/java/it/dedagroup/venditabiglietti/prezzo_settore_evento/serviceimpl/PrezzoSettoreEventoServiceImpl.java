@@ -70,7 +70,7 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	 */
 	@Override
 	public void eliminaPrezzoSettoreEvento(PrezzoSettoreEvento pse) {
-		pse.setAvailable(false);
+		pse.setCancellato(true);
 		repo.save(pse);
 	}
 
@@ -141,7 +141,7 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 
 
 	@Override
-	public List<PrezzoSettoreEvento> findAllByIsAvailableTrue(long idEvento, long idSettore) {
+	public List<PrezzoSettoreEvento> findAllByIsCancellatoFalse(long idEvento, long idSettore) {
 		return null;
 	}
 
@@ -155,7 +155,7 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	@Override
 	@Transactional(rollbackOn = DataAccessException.class)
 	public void eliminaByIdSettore(long idSettore) {
-		findAllByIdSettoreAndIsAvailableTrue(idSettore);
+		findAllByIdSettoreAndIsCancellatoFalse(idSettore);
 		repo.eliminaByIdSettore(idSettore);
 	}
 
@@ -168,7 +168,7 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	@Override
 	@Transactional(rollbackOn = DataAccessException.class)
 	public void eliminaByIdEvento(long idEvento) {
-		findAllByIdEventoAndIsAvailableTrue(idEvento);
+		findAllByIdEventoAndIsCancellatoFalse(idEvento);
 		repo.eliminaByIdEvento(idEvento);
 	}
 
@@ -182,7 +182,7 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	@Override
 	@Transactional(rollbackOn = DataAccessException.class)
 	public void eliminaByIdSettoreAndIdEvento(long idSettore, long idEvento) {
-		findAllByIdEventoAndIdSettoreAndIsAvailableTrue(idEvento, idSettore);
+		findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(idEvento, idSettore);
 		repo.eliminaByIdSettoreAndIdEvento(idSettore, idEvento);
 	}
 
@@ -194,8 +194,8 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	 * @throws NotFoundExceptionCustom Se non sono presenti prezzi settore evento disponibili per l'id specificato.
 	 */
 	@Override
-	public List<PrezzoSettoreEvento> findAllByIdEventoAndIsAvailableTrue(long idEvento) {
-		return repo.findAllByIdEventoAndIsAvailableTrue(idEvento)
+	public List<PrezzoSettoreEvento> findAllByIdEventoAndIsCancellatoFalse(long idEvento) {
+		return repo.findAllByIdEventoAndIsCancellatoFalse(idEvento)
 				.orElseThrow(() -> new NotFoundExceptionCustom("PrezziSettoreEvento con id evento "+idEvento+" non trovati"));
 	}
 
@@ -207,8 +207,8 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	 * @throws NotFoundExceptionCustom Se non sono presenti prezzi settore evento disponibili per l'id specificato.
 	 */
 	@Override
-	public List<PrezzoSettoreEvento> findAllByIdSettoreAndIsAvailableTrue(long idSettore) {
-		return repo.findAllByIdSettoreAndIsAvailableTrue(idSettore)
+	public List<PrezzoSettoreEvento> findAllByIdSettoreAndIsCancellatoFalse(long idSettore) {
+		return repo.findAllByIdSettoreAndIsCancellatoFalse(idSettore)
 				.orElseThrow(() -> new NotFoundExceptionCustom("PrezziSettoreEvento con id settore "+idSettore+" non trovati"));
 	}
 
@@ -221,9 +221,14 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	 * @throws NotFoundExceptionCustom Se non sono presenti prezzi settore evento disponibili per gli id specificati.
 	 */
 	@Override
-	public List<PrezzoSettoreEvento> findAllByIdEventoAndIdSettoreAndIsAvailableTrue(long idEvento, long idSettore) {
-		return repo.findAllByIdEventoAndIdSettoreAndIsAvailableTrue(idEvento, idSettore)
+	public List<PrezzoSettoreEvento> findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(long idEvento, long idSettore) {
+		return repo.findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(idEvento, idSettore)
 				.orElseThrow(() -> new NotFoundExceptionCustom("PrezziSettoreEvento con id_evento "+idEvento+" e con id_settore "+idSettore+" non trovati"));
+	}
+
+	@Override
+	public PrezzoSettoreEvento findPrezzoSettoreEventoById(long id) {
+		return repo.findById(id).orElseThrow(() -> new NotFoundExceptionCustom("Prezzo Settore Evento con id : " + id + " non trovato."));
 	}
 
 }

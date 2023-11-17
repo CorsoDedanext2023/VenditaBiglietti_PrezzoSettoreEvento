@@ -62,7 +62,7 @@ public interface PrezzoSettoreEventoRepository extends JpaRepository<PrezzoSetto
      * @param idSettore L'identificatore del settore.
      */
     @Modifying
-    @Query("UPDATE PrezzoSettoreEvento pse SET pse.isAvailable = false WHERE pse.idSettore = :idSettore")
+    @Query("UPDATE PrezzoSettoreEvento pse SET pse.isCancellato = true WHERE pse.idSettore = :idSettore")
     void eliminaByIdSettore(@Param("idSettore") long idSettore);
     
     /**
@@ -71,7 +71,7 @@ public interface PrezzoSettoreEventoRepository extends JpaRepository<PrezzoSetto
      * @param idEvento L'identificatore dell'evento.
      */
     @Modifying
-    @Query("UPDATE PrezzoSettoreEvento pse SET pse.isAvailable = false WHERE pse.idEvento = :idEvento")
+    @Query("UPDATE PrezzoSettoreEvento pse SET pse.isCancellato = true WHERE pse.idEvento = :idEvento")
     void eliminaByIdEvento(@Param("idEvento") long idEvento);
     
     /**
@@ -81,7 +81,7 @@ public interface PrezzoSettoreEventoRepository extends JpaRepository<PrezzoSetto
      * @param idEvento  L'identificatore dell'evento.
      */
     @Modifying
-    @Query("UPDATE PrezzoSettoreEvento pse SET pse.isAvailable = false WHERE pse.idSettore = :idSettore AND pse.idEvento = :idEvento")
+    @Query("UPDATE PrezzoSettoreEvento pse SET pse.isCancellato = true WHERE pse.idSettore = :idSettore AND pse.idEvento = :idEvento")
     void eliminaByIdSettoreAndIdEvento(@Param("idSettore") long idSettore, @Param("idEvento") long idEvento);
     
     /**
@@ -90,7 +90,7 @@ public interface PrezzoSettoreEventoRepository extends JpaRepository<PrezzoSetto
      * @param id L'identificatore dell'evento.
      * @return Un'opzione contenente una lista di prezzi del settore disponibili, se presenti.
      */
-    Optional<List<PrezzoSettoreEvento>> findAllByIdEventoAndIsAvailableTrue(long id);
+    Optional<List<PrezzoSettoreEvento>> findAllByIdEventoAndIsCancellatoFalse(long id);
     
     /**
      * Trova tutti i prezzi del settore per un determinato identificatore di settore con flag di disponibilità true.
@@ -98,7 +98,7 @@ public interface PrezzoSettoreEventoRepository extends JpaRepository<PrezzoSetto
      * @param id L'identificatore del settore.
      * @return Un'opzione contenente una lista di prezzi del settore disponibili, se presenti.
      */
-    Optional<List<PrezzoSettoreEvento>> findAllByIdSettoreAndIsAvailableTrue(long id);
+    Optional<List<PrezzoSettoreEvento>> findAllByIdSettoreAndIsCancellatoFalse(long id);
     
     /**
      * Trova tutti i prezzi del settore per un determinato identificatore di evento e settore con flag di disponibilità true.
@@ -107,5 +107,5 @@ public interface PrezzoSettoreEventoRepository extends JpaRepository<PrezzoSetto
      * @param idSettore L'identificatore del settore.
      * @return Un'opzione contenente una lista di prezzi del settore disponibili, se presenti.
      */
-    Optional<List<PrezzoSettoreEvento>> findAllByIdEventoAndIdSettoreAndIsAvailableTrue(long idEvento, long idSettore);
+    Optional<List<PrezzoSettoreEvento>> findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(long idEvento, long idSettore);
 }
