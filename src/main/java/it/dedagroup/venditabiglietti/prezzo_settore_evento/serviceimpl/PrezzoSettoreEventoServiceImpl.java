@@ -141,8 +141,8 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 
 
 	@Override
-	public List<PrezzoSettoreEvento> findAllByIsCancellatoFalse(long idEvento, long idSettore) {
-		return null;
+	public List<PrezzoSettoreEvento> findAllByIsCancellatoFalse() {
+		return repo.findAllByIsCancellatoFalse().orElseThrow(() -> new NotFoundExceptionCustom("Nessun prezzo settore evento è disponibile"));
 	}
 
 

@@ -108,4 +108,6 @@ public interface PrezzoSettoreEventoRepository extends JpaRepository<PrezzoSetto
      * @return Un'opzione contenente una lista di prezzi del settore disponibili, se presenti.
      */
     Optional<List<PrezzoSettoreEvento>> findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(long idEvento, long idSettore);
+    
+    Optional<List<PrezzoSettoreEvento>> findAllByIsCancellatoFalse();
 }

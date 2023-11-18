@@ -26,7 +26,7 @@ public class ErrorMessage {
     /**
      * Il timestamp di generazione del messaggio.
      */
-    private LocalDateTime ldt;
+    private LocalDateTime timeStamp;
     
     /**
      * Costruttore della classe ErrorMessage.
@@ -37,7 +37,7 @@ public class ErrorMessage {
     public ErrorMessage(String message, int statusCode) {
         this.message = message;
         this.statusCode = statusCode;
-        this.ldt = LocalDateTime.now();
+        this.timeStamp = LocalDateTime.now();
     }
     
    

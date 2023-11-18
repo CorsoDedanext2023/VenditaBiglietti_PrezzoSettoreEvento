@@ -449,4 +449,14 @@ class ApplicationTests {
 		.andReturn();
 	}
 	
+	@Test
+	@Order(7)
+	void findAllBiIsCancellatoCorretto() throws Exception{
+		mock.perform(MockMvcRequestBuilders.get("/prezzi-settore-evento/lista-is-cancellato-false")
+				.contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(MockMvcResultMatchers.status().isOk())
+		.andReturn();
+				
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import it.dedagroup.venditabiglietti.prezzo_settore_evento.dto.request.PrezzoSettoreEventoDtoRequest;
+import it.dedagroup.venditabiglietti.prezzo_settore_evento.dto.response.ErrorMessage;
 import it.dedagroup.venditabiglietti.prezzo_settore_evento.mapper.PrezzoSettoreEventoMapper;
 import it.dedagroup.venditabiglietti.prezzo_settore_evento.model.PrezzoSettoreEvento;
 import it.dedagroup.venditabiglietti.prezzo_settore_evento.servicedef.PrezzoSettoreEventoService;
@@ -29,8 +33,10 @@ import jakarta.validation.constraints.Positive;
  */
 @RestController
 @Validated
-@Tag(name = "Gruppo di endpoint per le operazione CRUD riguardanti Prezzo_Settore_Evento",
-	 description = "operazioni di lettura,cancellazione,modifica e aggiunta dei dati sull'applicativo Prezzo_Settore_evento")
+@Tag(name = "Gestione dei Prezzi Settore Evento",
+description = "Questo modulo gestiscele API di operazioni di lettura, cancellazione, modifica e aggiunta relative ai prezzi dei settori per gli eventi nell'applicativo Prezzo_Settore_Evento. "
+	     + "Fornisce funzionalità per visualizzare, modificare e eliminare prezzi settore evento in base a vari criteri come settore, evento, e stato di cancellazione."
+	)
 public class PrezzoSettoreEventoController {
 	
 	@Autowired
@@ -44,13 +50,22 @@ public class PrezzoSettoreEventoController {
 	 * @param request La richiesta per aggiungere un prezzo settore evento.
 	 * @return ResponseEntity con lo stato della richiesta.
 	 */
-	@Operation(summary = "Aggiunge un nuovo prezzo settore evento",
-			   description = "Questo endpoint permette di aggiungere un oggetto di tipo PrezzoSettoreEvento")
-	@ApiResponses(value = {
-			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
-	})
+	@Operation(
+		    summary = "Aggiungi un nuovo prezzo settore evento",
+		    description = "Questo endpoint consente di inserire un nuovo prezzo associato a un settore e un evento specifici. "
+		                + "I dettagli del prezzo sono forniti attraverso una richiesta di tipo PrezzoSettoreEventoDtoRequest. "
+		                + "Se l'operazione è completata con successo, viene restituito un codice di stato 200. "
+		                + "In caso di richiesta non valida, viene restituita una risposta con codice 400 e un oggetto di tipo ErrorMessage. "
+		                + "In caso di errore interno del server, viene restituito un codice 500."
+		)
+		@ApiResponses(value = {
+		    @ApiResponse(description = "Operazione riuscita", responseCode = "200"),
+		    @ApiResponse(description = "Richiesta non valida", responseCode = "400", content = @Content(
+		        mediaType = MediaType.APPLICATION_JSON_VALUE,
+		        schema = @Schema(implementation = ErrorMessage.class)
+		    )),
+		    @ApiResponse(description = "Errore interno del server", responseCode = "500")
+		})
 	@PostMapping("/prezzi-settore-evento/add")
 	public ResponseEntity<Void> aggiungiPrezzoSettoreEvento(@Valid @RequestBody PrezzoSettoreEventoDtoRequest request){
 		pseService.aggiungiPrezzoSettoreEvento(pseMapper.toPrezzoSettoreEvento(request));
@@ -68,14 +83,16 @@ public class PrezzoSettoreEventoController {
 			description = "Questo endpoint restituisce la lista dei prezzi dei settori per un determinato settore.")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-settore")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettore(
 			@RequestParam 
 			@Min(value = 1, message = "L'id del settore non è valido") 
-			@Positive(message = "l'id del settore non è valido")
 			long idSettore){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdSettore(idSettore));
 	}
@@ -90,7 +107,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint restituisce la lista dei prezzi dei settori per un determinato evento")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento")
@@ -109,7 +129,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint restituisce un'id del settore modificato")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@PostMapping("/prezzi-settore-evento/modifica-settore")
@@ -135,7 +158,10 @@ public class PrezzoSettoreEventoController {
 			description = "Questo endpoint permette di modificare l'id dell'evento")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 
@@ -161,7 +187,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint permette di modificare il prezzo di un determinato settore ed evento")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@PostMapping("/prezzi-settore-evento/modifica-prezzo")
@@ -181,7 +210,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint resitutisce la lista dei prezzi per un determinato evento e settore")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore")
@@ -202,7 +234,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint restituisce la lista dei prezzi per un determinato evento e settore,nel caso in cui siano disponibili")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore-is-cancellato-false")
@@ -222,7 +257,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint restituisce la lista dei prezzi per un determinato evento, nel caso in cui siano disponibili")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento-is-cancellato-false")
@@ -241,7 +279,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint restituisce la lista dei prezzi per un determinato settore, nel caso in cui siano disponibili")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-settore-is-cancellato-false")
@@ -260,7 +301,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint elimina un oggetto prezzo settore evento attraverso l'id")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@PostMapping("/prezzi-settore-evento/elimina-by-id")
@@ -281,7 +325,10 @@ public class PrezzoSettoreEventoController {
 			description = "Questo endpoint elimina un oggetto prezzo settore evento attraverso l'id di un settore")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@PostMapping("/prezzi-settore-evento/elimina-by-settore")
@@ -301,7 +348,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint elimina un oggetto prezzo settore evento attraverso l'id di un evento")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@PostMapping("/prezzi-settore-evento/elimina-by-evento")
@@ -322,7 +372,10 @@ public class PrezzoSettoreEventoController {
 			   description = "Questo endpoint elimina un oggetto prezzo settore evento attraverso l'id di un settore e l'id di un evento")
 	@ApiResponses(value = {
 			@ApiResponse(description = "Operazione riuscita", responseCode = "200"),
-			@ApiResponse(description = "Richiesta non valida",responseCode = "400"),
+			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
+			        mediaType = MediaType.APPLICATION_JSON_VALUE,
+			        schema = @Schema(implementation = ErrorMessage.class)
+			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 	@PostMapping("/prezzi-settore-evento/elimina-by-settore-evento")
@@ -331,5 +384,10 @@ public class PrezzoSettoreEventoController {
 			@RequestParam @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
 		pseService.eliminaByIdSettoreAndIdEvento(idSettore, idEvento);
 		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+	
+	@GetMapping("/prezzi-settore-evento/lista-is-cancellato-false")
+	public ResponseEntity<List<PrezzoSettoreEvento>> getAllIsCancellatoFalse(){
+		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIsCancellatoFalse());
 	}
 }

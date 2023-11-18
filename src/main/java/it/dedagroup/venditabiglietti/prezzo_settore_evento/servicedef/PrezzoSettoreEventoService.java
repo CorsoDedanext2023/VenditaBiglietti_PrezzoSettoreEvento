@@ -86,7 +86,7 @@ public interface PrezzoSettoreEventoService {
     * @return Una lista di prezzi dei settori per l'evento che sono disponibili, se presenti.
     * @throws NotFoundExceptionCustom se non vengono trovati prezzi del settore disponibili per l'evento e settore specificati.
     */
-   List<PrezzoSettoreEvento> findAllByIsCancellatoFalse(long idEvento, long idSettore) throws NotFoundExceptionCustom;
+   List<PrezzoSettoreEvento> findAllByIsCancellatoFalse() throws NotFoundExceptionCustom;
    
    /**
     * Trova tutti i prezzi dei settori per un determinato identificatore di evento che sono disponibili.
