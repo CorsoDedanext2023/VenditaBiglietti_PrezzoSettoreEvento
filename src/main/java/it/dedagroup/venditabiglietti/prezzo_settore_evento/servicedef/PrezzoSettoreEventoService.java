@@ -139,6 +139,8 @@ public interface PrezzoSettoreEventoService {
    void eliminaByIdSettoreAndIdEvento(long idSettore, long idEvento);
    
    PrezzoSettoreEvento findPrezzoSettoreEventoById(long id);
+   
+   List<PrezzoSettoreEvento> getListaPseByIdsEvento(List<Long> idEventi);
 
    
    

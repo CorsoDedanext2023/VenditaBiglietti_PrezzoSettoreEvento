@@ -110,4 +110,6 @@ public interface PrezzoSettoreEventoRepository extends JpaRepository<PrezzoSetto
     Optional<List<PrezzoSettoreEvento>> findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(long idEvento, long idSettore);
     
     Optional<List<PrezzoSettoreEvento>> findAllByIsCancellatoFalse();
+    
+    List<PrezzoSettoreEvento> findAllByIdEventoIn(List<Long> idEvento);
 }

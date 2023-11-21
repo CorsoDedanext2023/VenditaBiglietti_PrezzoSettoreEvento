@@ -231,4 +231,9 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 		return repo.findById(id).orElseThrow(() -> new NotFoundExceptionCustom("Prezzo Settore Evento con id : " + id + " non trovato."));
 	}
 
+	@Override
+	public List<PrezzoSettoreEvento> getListaPseByIdsEvento(List<Long> idEventi) {
+		return repo.findAllByIdEventoIn(idEventi);
+	}
+
 }

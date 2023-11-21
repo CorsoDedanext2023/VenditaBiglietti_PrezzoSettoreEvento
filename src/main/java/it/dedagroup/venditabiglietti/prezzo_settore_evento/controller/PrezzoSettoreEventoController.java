@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -389,5 +390,15 @@ public class PrezzoSettoreEventoController {
 	@GetMapping("/prezzi-settore-evento/lista-is-cancellato-false")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getAllIsCancellatoFalse(){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIsCancellatoFalse());
+	}
+	
+	@GetMapping("/prezzi-settore-evento/{id}")
+	public ResponseEntity<PrezzoSettoreEvento> findById(@PathVariable @Min(value = 1,message = "l'Id del prezzo settore evento non è valido")long id){
+		return ResponseEntity.status(HttpStatus.OK).body(pseService.findById(id));
+	}
+	
+	@GetMapping("/prezzi-settore-evento/ids-evento")
+	public ResponseEntity<List<PrezzoSettoreEvento>> findAllByIdsEvento(@RequestBody List<Long> idEventi){
+		return ResponseEntity.status(HttpStatus.OK).body(pseService.getListaPseByIdsEvento(idEventi));
 	}
 }
