@@ -90,9 +90,9 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-settore")
+	@GetMapping("/prezzi-settore-evento/lista-by-settore/{idSettore}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettore(
-			@RequestParam 
+			@PathVariable
 			@Min(value = 1, message = "L'id del settore non è valido") 
 			long idSettore){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdSettore(idSettore));
@@ -114,8 +114,8 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-evento")
-	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEvento(@RequestParam @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
+	@GetMapping("/prezzi-settore-evento/lista-by-evento/{idEvento}")
+	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEvento(@PathVariable @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEvento(idEvento));
 	}
 	
@@ -136,10 +136,10 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@PostMapping("/prezzi-settore-evento/modifica-settore")
+	@PostMapping("/prezzi-settore-evento/modifica-settore/{idPse}-{idSettore}")
 	public ResponseEntity<Void> modificaIdSettore(
-			@RequestParam("idPse") @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idPse,
-			@RequestParam("idSettore") @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
+			@PathVariable("idPse") @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idPse,
+			@PathVariable("idSettore") @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
 		PrezzoSettoreEvento pse = pseService.findById(idPse);
 		pse.setIdSettore(idSettore);
 		pseService.modificaPrezzoSettoreEvento(pse);
@@ -166,11 +166,11 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
 
-	@PostMapping("/prezzi-settore-evento/modifica-evento")
+	@PostMapping("/prezzi-settore-evento/modifica-evento/{idPse}-{idEvento}")
 
 	public ResponseEntity<Void> modificaIdEvento(
-			@RequestParam("idPse") @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idPse,
-			@RequestParam("idEvento") @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
+			@PathVariable("idPse") @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idPse,
+			@PathVariable("idEvento") @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
 		PrezzoSettoreEvento pse = pseService.findById(idPse);
 		pse.setIdEvento(idEvento);
 		pseService.modificaPrezzoSettoreEvento(pse);
@@ -217,10 +217,10 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore")
+	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore/{idEvento}-{idSettore}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIdSettore(
-			@RequestParam @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento,
-			@RequestParam @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
+			@PathVariable @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento,
+			@PathVariable @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEventoAndIdSettore(idEvento, idSettore));
 	}
 	
@@ -241,10 +241,10 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore-is-cancellato-false")
+	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore-is-cancellato-false/{idEvento}-{idSettore}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIdSettoreAndIsCancellatoFalse(
-			@RequestParam @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento,
-			@RequestParam @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
+			@PathVariable @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento,
+			@PathVariable @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(idEvento, idSettore));
 	}
 	
@@ -264,9 +264,9 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-evento-is-cancellato-false")
+	@GetMapping("/prezzi-settore-evento/lista-by-evento-is-cancellato-false/{idEvento}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIsCancellatoFalse(
-			@RequestParam @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
+			@PathVariable @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEventoAndIsCancellatoFalse(idEvento));
 	}
 	
@@ -286,9 +286,9 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@GetMapping("/prezzi-settore-evento/lista-by-settore-is-cancellato-false")
+	@GetMapping("/prezzi-settore-evento/lista-by-settore-is-cancellato-false/{idSettore}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettoreAndIsCancellatoFalse(
-			@RequestParam @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
+			@PathVariable @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdSettoreAndIsCancellatoFalse(idSettore));
 	}
 	
@@ -308,9 +308,9 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@PostMapping("/prezzi-settore-evento/elimina-by-id")
+	@PostMapping("/prezzi-settore-evento/elimina-by-id/{idPse}")
 	public ResponseEntity<Void> eliminaPrezzoSettoreEventoById(
-			@RequestParam("idPse") @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idPse){
+			@PathVariable("idPse") @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idPse){
 		pseService.eliminaPrezzoSettoreEvento(pseService.findById(idPse));
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
@@ -332,9 +332,9 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@PostMapping("/prezzi-settore-evento/elimina-by-settore")
+	@PostMapping("/prezzi-settore-evento/elimina-by-settore/{idSettore}")
 	public ResponseEntity<Void> eliminaPrezzoSettoreEventoByIdSettore(
-			@RequestParam("idSettore") @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
+			@PathVariable("idSettore") @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
 		pseService.eliminaByIdSettore(idSettore);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
@@ -355,9 +355,9 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@PostMapping("/prezzi-settore-evento/elimina-by-evento")
+	@PostMapping("/prezzi-settore-evento/elimina-by-evento/{idEvento}")
 	public ResponseEntity<Void> eliminaPrezzoSettoreEventoByIdEvento(
-			@RequestParam @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idEvento){
+			@PathVariable @Min(value = 1, message = "L'id del PrezzoSettoreEvento non è valido") long idEvento){
 		pseService.eliminaByIdEvento(idEvento);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
@@ -379,10 +379,10 @@ public class PrezzoSettoreEventoController {
 			    )),
 			@ApiResponse(description = "Errore interno del server", responseCode = "500")
 	})
-	@PostMapping("/prezzi-settore-evento/elimina-by-settore-evento")
+	@PostMapping("/prezzi-settore-evento/elimina-by-settore-evento/{idEvento}-{idSettore}")
 	public ResponseEntity<Void> eliminaByIdSettoreAndIdEvento(
-			@RequestParam @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento,
-			@RequestParam @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
+			@PathVariable @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento,
+			@PathVariable @Min(value = 1, message = "L'id del settore non è valido") long idSettore){
 		pseService.eliminaByIdSettoreAndIdEvento(idSettore, idEvento);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
