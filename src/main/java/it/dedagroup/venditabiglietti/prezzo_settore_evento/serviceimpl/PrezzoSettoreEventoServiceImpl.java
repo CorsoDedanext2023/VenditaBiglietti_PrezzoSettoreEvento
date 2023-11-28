@@ -121,7 +121,6 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	@Override
 	@Transactional(rollbackOn = DataAccessException.class)
 	public void modificaPrezzoByIdSettoreAndIdEvento(double prezzo, long idSettore, long idEvento) {
-		findAllByIdEventoAndIdSettore(idEvento, idSettore);
 		repo.modificaPrezzoByIdSettoreAndIdEvento(prezzo, idSettore, idEvento);
 	}
 
@@ -155,7 +154,6 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	@Override
 	@Transactional(rollbackOn = DataAccessException.class)
 	public void eliminaByIdSettore(long idSettore) {
-		findAllByIdSettoreAndIsCancellatoFalse(idSettore);
 		repo.eliminaByIdSettore(idSettore);
 	}
 
@@ -168,7 +166,6 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	@Override
 	@Transactional(rollbackOn = DataAccessException.class)
 	public void eliminaByIdEvento(long idEvento) {
-		findAllByIdEventoAndIsCancellatoFalse(idEvento);
 		repo.eliminaByIdEvento(idEvento);
 	}
 
@@ -182,7 +179,6 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 	@Override
 	@Transactional(rollbackOn = DataAccessException.class)
 	public void eliminaByIdSettoreAndIdEvento(long idSettore, long idEvento) {
-		findAllByIdEventoAndIdSettoreAndIsCancellatoFalse(idEvento, idSettore);
 		repo.eliminaByIdSettoreAndIdEvento(idSettore, idEvento);
 	}
 

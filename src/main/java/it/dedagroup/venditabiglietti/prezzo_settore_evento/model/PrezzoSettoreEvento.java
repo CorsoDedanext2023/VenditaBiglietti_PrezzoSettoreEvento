@@ -50,9 +50,9 @@ public class PrezzoSettoreEvento {
 	@Column(nullable = false)
 	private boolean isCancellato = false;
 	
-	@Column
-	@Version
-	private long version;
+//	@Column
+//	@Version
+//	private long version;
 
 }
 

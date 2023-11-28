@@ -64,8 +64,7 @@ public class PrezzoSettoreEventoController {
 		    @ApiResponse(description = "Richiesta non valida", responseCode = "400", content = @Content(
 		        mediaType = MediaType.APPLICATION_JSON_VALUE,
 		        schema = @Schema(implementation = ErrorMessage.class)
-		    )),
-		    @ApiResponse(description = "Errore interno del server", responseCode = "500")
+		    ))
 		})
 	@PostMapping("/prezzi-settore-evento/add")
 	public ResponseEntity<Void> aggiungiPrezzoSettoreEvento(@Valid @RequestBody PrezzoSettoreEventoDtoRequest request){
@@ -87,8 +86,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-settore/id-settore/{idSettore}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettore(
@@ -111,8 +109,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento/id-evento/{idEvento}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEvento(@PathVariable("id") @Min(value = 1, message = "L'id dell'evento non è valido") long id){
@@ -133,8 +130,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@PostMapping("/prezzi-settore-evento/modifica-settore/id-pse/{idPse}/idSettore/{idSettore}")
 	public ResponseEntity<Void> modificaIdSettore(
@@ -162,8 +158,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 
 	@PostMapping("/prezzi-settore-evento/modifica-evento/id-pse/{idPse}/id-evento/{idEvento}")
@@ -190,8 +185,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@PostMapping("/prezzi-settore-evento/modifica-prezzo")
 	public ResponseEntity<Void> modificaPrezzoByIdSettoreAndIdEvento(@Valid @RequestBody PrezzoSettoreEventoDtoRequest request){
@@ -213,8 +207,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore/id-evento/{idEvento}/id-settore/{idSettore}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIdSettore(
@@ -237,8 +230,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento-settore-is-cancellato-false/id-evento/{idEvento}/id-settore/{idSettore}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIdSettoreAndIsCancellatoFalse(
@@ -260,8 +252,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento-is-cancellato-false/id-evento/{id}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEventoAndIsCancellatoFalse(
@@ -282,8 +273,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-settore-is-cancellato-false/id-settore/{id}")
 	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdSettoreAndIsCancellatoFalse(
@@ -304,8 +294,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@PostMapping("/prezzi-settore-evento/elimina-by-id/{id}")
 	public ResponseEntity<Void> eliminaPrezzoSettoreEventoById(
@@ -328,8 +317,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@PostMapping("/prezzi-settore-evento/elimina-by-settore/id-settore/{id}")
 	public ResponseEntity<Void> eliminaPrezzoSettoreEventoByIdSettore(
@@ -351,8 +339,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@PostMapping("/prezzi-settore-evento/elimina-by-evento/id-evento/{id}")
 	public ResponseEntity<Void> eliminaPrezzoSettoreEventoByIdEvento(
@@ -375,8 +362,7 @@ public class PrezzoSettoreEventoController {
 			@ApiResponse(description = "Richiesta non valida",responseCode = "400", content = @Content(
 			        mediaType = MediaType.APPLICATION_JSON_VALUE,
 			        schema = @Schema(implementation = ErrorMessage.class)
-			    )),
-			@ApiResponse(description = "Errore interno del server", responseCode = "500")
+			    ))
 	})
 	@PostMapping("/prezzi-settore-evento/elimina-by-settore-evento/id-evento/{idEvento}/id-settore/{idSettore}")
 	public ResponseEntity<Void> eliminaByIdSettoreAndIdEvento(
