@@ -382,7 +382,7 @@ public class PrezzoSettoreEventoController {
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.findById(id));
 	}
 	
-	@GetMapping("/prezzi-settore-evento/ids-evento")
+	@PostMapping("/prezzi-settore-evento/ids-evento")
 	public ResponseEntity<List<PrezzoSettoreEvento>> findAllByIdsEvento(@RequestBody List<Long> idEventi){
 		return ResponseEntity.status(HttpStatus.OK).body(pseService.getListaPseByIdsEvento(idEventi));
 	}

@@ -1,5 +1,6 @@
 package it.dedagroup.venditabiglietti.prezzo_settore_evento.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -229,6 +230,7 @@ public class PrezzoSettoreEventoServiceImpl implements PrezzoSettoreEventoServic
 
 	@Override
 	public List<PrezzoSettoreEvento> getListaPseByIdsEvento(List<Long> idEventi) {
+		if(idEventi.isEmpty()||idEventi ==null) return new ArrayList<>();
 		return repo.findAllByIdEventoIn(idEventi);
 	}
 
