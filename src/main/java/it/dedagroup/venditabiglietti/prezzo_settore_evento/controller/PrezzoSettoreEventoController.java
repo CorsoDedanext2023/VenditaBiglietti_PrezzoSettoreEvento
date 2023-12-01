@@ -112,8 +112,8 @@ public class PrezzoSettoreEventoController {
 			    ))
 	})
 	@GetMapping("/prezzi-settore-evento/lista-by-evento/id-evento/{idEvento}")
-	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEvento(@PathVariable("id") @Min(value = 1, message = "L'id dell'evento non è valido") long id){
-		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEvento(id));
+	public ResponseEntity<List<PrezzoSettoreEvento>> getListaPrezzoSettoreEventoByIdEvento(@PathVariable @Min(value = 1, message = "L'id dell'evento non è valido") long idEvento){
+		return ResponseEntity.status(HttpStatus.OK).body(pseService.findAllByIdEvento(idEvento));
 	}
 	
 	/**
